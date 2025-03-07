@@ -13,6 +13,8 @@ class Dataset(object):
         self.data = {}
         for f in ['train', 'test', 'valid']:
             in_file = open(os.path.join(self.root, f + '.pickle'), 'rb')
+            # in_file = open('D:\\githubrep\\OTKGE\\src_data\\WN9IMG\\train', 'rb')
+            # in_file = open(os.path.join(self.root, f), 'rb')
             self.data[f] = pickle.load(in_file)
 
         print(self.data['train'].shape)

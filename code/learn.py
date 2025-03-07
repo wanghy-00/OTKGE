@@ -82,7 +82,7 @@ parser.add_argument('-id', '--model_id', type=str, default='0')
 parser.add_argument('-ckpt', '--checkpoint', type=str, default='')
 
 args = parser.parse_args()
-
+args.save_path = 'D:\githubrep\OTKGE\output'
 if args.do_save:
     assert args.save_path
     save_suffix = args.model + '_' + args.regularizer + '_' + args.dataset + '_' + args.model_id
@@ -98,6 +98,7 @@ if args.do_save:
         json.dump(vars(args), f, indent=4)
 
 data_path = "../data"
+# data_path = "D:\githubrep\OTKGE\src_data\WN9IMG"
 dataset = Dataset(data_path, args.dataset)
 examples = torch.from_numpy(dataset.get_train().astype('int64'))
 
@@ -144,7 +145,7 @@ def avg_both(mrrs: Dict[str, float], hits: Dict[str, torch.FloatTensor]):
 
 cur_loss = 0
 
-if args.checkpoint is not '':
+if args.checkpoint != '':
     model.load_state_dict(torch.load(os.path.join(args.checkpoint, 'checkpoint'), map_location='cuda:0'))
 
 if args.do_train:
